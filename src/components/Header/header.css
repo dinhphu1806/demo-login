@@ -1,0 +1,19 @@
+.header__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.header__nav{
+    list-style: none;
+    display: flex;
+}
+a{
+    text-decoration: none;
+    padding: 10px 15px;
+    color: #000;
+    font-size: 16px;
+}
