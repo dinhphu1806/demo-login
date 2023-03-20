@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import './login.css';
+import { toast } from 'react-toastify';
 
 // 
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
@@ -9,7 +10,7 @@ import Loading from '../components/Loading/Loading';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 
-const Register = (props) => {
+const Register = () => {
 
   const [ username, setUsername] = useState('')
   const [ email, setEmail] = useState('')
@@ -60,9 +61,15 @@ const Register = (props) => {
         })
       })
 
+      setLoading(false)
+      alert("Acount created successfully")
+      toast.success("Account created successfully")
+      navigate('/login')
+
     } catch (error) {
       setLoading(false)
-      console.log(error.message);
+      // console.log(error.message);
+      toast.error(error.message)
     }
     // createUserWithEmailAndPassword(auth, email, password)
     //   .then((userCredential) => {
@@ -90,11 +97,11 @@ const Register = (props) => {
         <form action="form" onSubmit={handleSubmitRegister}>
           <div className="form__field" style={{textAlign: 'center'}}>
             <label htmlFor="username" >Username</label>
-            <input type='text' id='username' placeholder='username'  value={username} onChange={e => setUsername(e.target.value)} style={styleInput} />
+            <input type='text' id='username' placeholder='username' autoComplete='off' value={username} onChange={e => setUsername(e.target.value)} style={styleInput} />
           </div>
           <div className="form__field" style={{textAlign: 'center'}}>
             <label htmlFor="email" >Email</label>
-            <input type='email' id='email' placeholder='Email'  value={email} onChange={e => setEmail(e.target.value)} style={styleInput} />
+            <input type='email' id='email' placeholder='Email' autoComplete='off'  value={email} onChange={e => setEmail(e.target.value)} style={styleInput} />
           </div>
           <div className="form__field" style={{textAlign: 'center'}}>
             <label htmlFor="password">Password</label>

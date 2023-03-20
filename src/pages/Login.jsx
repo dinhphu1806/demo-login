@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import './login.css';
+import { toast } from 'react-toastify';
 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase.config';
@@ -16,7 +17,7 @@ const Login = (props) => {
   const [ email, setEmail] = useState('')
   const [ password, setPassword] = useState('')
   const [ isRemember, setIsRemember ] = useState(false)
-  const [error, setError] = useState('');
+  const [ error, setError] = useState('');
   const [ loading, setLoading] = useState(false)
 
   
@@ -32,11 +33,14 @@ const Login = (props) => {
       console.log(user)
       setLoading(false) 
       // toast.success('Successfully logged in')
+      // alert("Login successfully")
+      toast.success("Login successfully ")
       navigate('/')
      
     } catch(error) {
       setLoading(false) // setLoading err
-      console.log(error.message);
+      // console.log(error.message);
+      toast.error(error.message)
       // toast.error(error.message) // toast error
     }
   //   signInWithEmailAndPassword(auth, email, password)
@@ -56,7 +60,7 @@ const Login = (props) => {
   // });
   }
 
-  // handle login
+  // handle login google
   const provider = new GoogleAuthProvider();
   const handleLoginWithGoogle = () => {
     signInWithPopup(auth, provider)
