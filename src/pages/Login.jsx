@@ -8,9 +8,11 @@ import { auth } from '../firebase.config';
 
 // login google
 import { GoogleAuthProvider,  signInWithPopup } from "firebase/auth";
+//  login fb
+import { FacebookAuthProvider } from "firebase/auth";
 
 import Loading from '../components/Loading/Loading';
-const Login = (props) => {
+const Login = () => {
 
   const navigate = useNavigate()
 
@@ -24,7 +26,7 @@ const Login = (props) => {
   // handle login
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
-    console.log({email, password, isRemember});
+    // console.log({email, password, isRemember});
     setLoading(true)
     try{
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
@@ -60,19 +62,41 @@ const Login = (props) => {
   // });
   }
 
-  // handle login google
-  const provider = new GoogleAuthProvider();
+  // handle login with google
+ 
   const handleLoginWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    setLoading(true)
     signInWithPopup(auth, provider)
     .then((result) => {
       const user = result.user;
-      alert("Successfully")
+      setLoading(false)
+      // alert("Successfully")
+      toast.success("Login successfully")
       navigate('/')
     }).catch((error) => {
-      setError(error.message)
+      setLoading(false)
+      // setError(error.message)
+      toast.error(error.message)
       // console.log(error.message);
     });
+  }
 
+  // handle login with facebook
+ 
+  const handleLoginFacebook = () => {
+    const provider = new FacebookAuthProvider();
+    setLoading(true)
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      console.log(result);
+      setLoading(false)
+      toast.success("Login successfully")
+      navigate('/')
+    }).catch((error) => {
+      setLoading(false)
+      toast.error(error.message)
+    })
   }
 
   const styleInput = {
@@ -104,7 +128,7 @@ const Login = (props) => {
           </div>
 
           <div className="form__link">
-            <a href="">Facebook</a>
+            <button onClick={handleLoginFacebook}>Facebook</button>
             <button onClick={handleLoginWithGoogle}>Google</button>
           </div>
         

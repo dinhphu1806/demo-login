@@ -15,20 +15,23 @@ import { auth } from '../../firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { toast } from 'react-toastify';
 
+// import useAuth from '../../custom-hooks/useAuth';
 
 const Header = () => {
     const dispatch = useDispatch()
     const { loginGoogle } = useSelector(state => state.authen)
     const navigate = useNavigate()
+  
+// import auth thay the cho thang displayName
+    // const { currentUser} = useAuth()
   const handleLogOut = () => {
     signOut(auth).then(() => {
         // Sign-out successful.
-        // alert("Logout succesfully")
         toast.success("Logout successfully")
         navigate("/")
       }).catch((error) => {
         // toast.error("error.message")
-        console.log(error.message);
+        toast.error(error.message);
     });
   }
 

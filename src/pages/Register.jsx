@@ -28,7 +28,8 @@ const Register = () => {
     e.preventDefault();
     console.log({email, password, cPassword});
     if(password !== cPassword) {
-      alert('Do not match password !')
+      // alert('Do not match password !')
+      toast.error('Do not match password !')
     }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
