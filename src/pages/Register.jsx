@@ -62,7 +62,7 @@ const Register = () => {
       })
 
       setLoading(false)
-      alert("Acount created successfully")
+      // alert("Acount created successfully")
       toast.success("Account created successfully")
       navigate('/login')
 
